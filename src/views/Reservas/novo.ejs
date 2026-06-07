@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><title>Nova Reserva - Hotel Twister</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+            <div class="card-header bg-dark text-white"><h5>🔑 Criar Nova Reserva</h5></div>
+            <div class="card-body">
+                <form action="/reservas/novo" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Selecione o Hóspede</label>
+                        <select name="id_hospede" class="form-select" required>
+                            <% hospedes.forEach(h => { %>
+                                <option value="<%= h.id_hospede %>"><%= h.nome %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Quarto Livre</label>
+                        <select name="id_quarto" class="form-select" required>
+                            <% if (quartos.length === 0) { %>
+                                <option disabled>Nenhum quarto vago disponível</option>
+                            <% } else { %>
+                                <% quartos.forEach(q => { %>
+                                    <option value="<%= q.id_quarto %>">Quarto <%= q.numero %> - <%= q.tipo %> (R$ <%= q.preco_diaria %>)</option>
+                                <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3"><label class="form-label">Data Entrada</label><input type="date" name="data_entrada" class="form-control" required></div>
+                        <div class="col-md-6 mb-3"><label class="form-label">Data Saída</label><input type="date" name="data_saida" class="form-control" required></div>
+                    </div>
+                    <div class="mb-3"><label class="form-label">Valor Total Fechado (R$)</label><input type="number" step="0.01" name="valor_total" class="form-control" required></div>
+                    <div class="d-flex justify-content-between"><a href="/reservas" class="btn btn-secondary">Voltar</a><button type="submit" class="btn btn-primary" <% if(quartos.length === 0){ %> disabled <% } %> >Confirmar Reserva</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
