@@ -22,16 +22,10 @@ exports.processarLogin = async (req, res) => {
         const usuario = rows[0];
 
         let senhaCorreta = false;
-
-        if (senha === 'admin123' || senha === usuario.senha_hash) {
-            senhaCorreta = true;
-        } else {
-            
-            try {
-                senhaCorreta = await bcrypt.compare(senha, usuario.senha_hash);
-            } catch (bcryptError) {
-                senhaCorreta = false;
-            }
+        try {
+            senhaCorreta = await bcrypt.compare(senha, usuario.senha_hash);
+        } catch (bcryptError) {
+            senhaCorreta = false;
         }
 
         if (!senhaCorreta) {

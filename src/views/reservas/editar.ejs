@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><title>Editar Reserva - Hotel Twister</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+            <div class="card-header bg-warning text-dark"><h5>✏️ Editar Reserva</h5></div>
+            <div class="card-body">
+                <form action="/reservas/editar/<%= reserva.id_reserva %>" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Hóspede</label>
+                        <select name="id_hospede" class="form-select" required>
+                            <% hospedes.forEach(h => { %>
+                                <option value="<%= h.id_hospede %>" <% if (h.id_hospede === reserva.id_hospede) { %>selected<% } %>><%= h.nome %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Quarto</label>
+                        <select name="id_quarto" class="form-select" required>
+                            <% quartos.forEach(q => { %>
+                                <option value="<%= q.id_quarto %>" <% if (q.id_quarto === reserva.id_quarto) { %>selected<% } %>>Quarto <%= q.numero %> - <%= q.tipo %> (R$ <%= Number(q.preco_diaria).toFixed(2) %>)</option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3"><label class="form-label">Data Entrada</label><input type="date" name="data_entrada" class="form-control" value="<%= new Date(reserva.data_entrada).toISOString().slice(0,10) %>" required></div>
+                        <div class="col-md-6 mb-3"><label class="form-label">Data Saída</label><input type="date" name="data_saida" class="form-control" value="<%= new Date(reserva.data_saida).toISOString().slice(0,10) %>" required></div>
+                    </div>
+                    <div class="mb-3"><label class="form-label">Valor Total Fechado (R$)</label><input type="number" step="0.01" name="valor_total" class="form-control" value="<%= reserva.valor_total %>" required></div>
+                    <div class="d-flex justify-content-between"><a href="/reservas" class="btn btn-secondary">Voltar</a><button type="submit" class="btn btn-success">Atualizar</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

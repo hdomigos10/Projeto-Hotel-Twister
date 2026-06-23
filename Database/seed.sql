@@ -1,7 +1,7 @@
 USE hotel_twister;
 
 INSERT INTO usuario (nome, email, senha_hash) 
-VALUES ('Administrador Twister', 'admin@hotel.com', '$2b$10$U27f80E6N6rS3jZgK1nIeeFmZ7L46w8tS.I8Gv.aBy.kYhCqG1uSy')
+VALUES ('Administrador Twister', 'admin@hotel.com', '$2b$10$dAPKQXI/pqWDvnmRj5XuVu4d0ETkAz7CL/JiZTQp6TrpLT1qlvxZe')
 ON DUPLICATE KEY UPDATE id_usuario=id_usuario;
 
 INSERT INTO hospede (nome, cpf, email, telefone) VALUES 

@@ -6,6 +6,8 @@ const verificarAutenticacao = require('../middLewares/authMiddLeware');
 router.get('/reservas', verificarAutenticacao, reservaController.listar);
 router.get('/reservas/novo', verificarAutenticacao, reservaController.telaNovo);
 router.post('/reservas/novo', verificarAutenticacao, reservaController.salvar);
+router.get('/reservas/editar/:id', verificarAutenticacao, reservaController.telaEditar);
+router.post('/reservas/editar/:id', verificarAutenticacao, reservaController.atualizar);
 router.get('/reservas/excluir/:id', verificarAutenticacao, reservaController.excluir);
 
 module.exports = router;

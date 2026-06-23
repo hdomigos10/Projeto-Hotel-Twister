@@ -21,6 +21,30 @@ const Reserva = {
         await pool.execute('UPDATE quarto SET status = "Ocupado" WHERE id_quarto = ?', [id_quarto]);
         return result;
     },
+    buscarPorId: async (id) => {
+        const [rows] = await pool.execute('SELECT * FROM reserva WHERE id_reserva = ?', [id]);
+        return rows[0];
+    },
+    atualizar: async (id, dados) => {
+        const { id_hospede, id_quarto, data_entrada, data_saida, valor_total } = dados;
+
+        const [rows] = await pool.execute('SELECT id_quarto FROM reserva WHERE id_reserva = ?', [id]);
+        if (rows.length === 0) {
+            throw new Error('Reserva não encontrada.');
+        }
+        const idQuartoAntigo = rows[0].id_quarto;
+
+        // Se o quarto foi trocado, libera o quarto antigo e ocupa o novo
+        if (Number(idQuartoAntigo) !== Number(id_quarto)) {
+            await pool.execute('UPDATE quarto SET status = "Disponível" WHERE id_quarto = ?', [idQuartoAntigo]);
+            await pool.execute('UPDATE quarto SET status = "Ocupado" WHERE id_quarto = ?', [id_quarto]);
+        }
+
+        return await pool.execute(
+            'UPDATE reserva SET id_hospede = ?, id_quarto = ?, data_entrada = ?, data_saida = ?, valor_total = ? WHERE id_reserva = ?',
+            [id_hospede, id_quarto, data_entrada, data_saida, valor_total, id]
+        );
+    },
     excluir: async (id) => {
         const [rows] = await pool.execute('SELECT id_quarto FROM reserva WHERE id_reserva = ?', [id]);
         if (rows.length > 0) {
