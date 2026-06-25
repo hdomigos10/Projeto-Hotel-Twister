@@ -7,6 +7,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const hospedeRoutes = require('./src/routes/hospedeRoutes');
 const quartoRoutes = require('./src/routes/quartoRoutes');
 const reservaRoutes = require('./src/routes/reservaRoutes');
+const apiRoutes = require('./src/routes/apiRoutes');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
@@ -20,12 +21,17 @@ app.use(session({
     saveUninitialized: false
 }));
 
-
+// Rotas do navegador (EJS)
 app.use(authRoutes);
 app.use(hospedeRoutes);
 app.use(quartoRoutes);
 app.use(reservaRoutes);
 
+// Rotas da API (Postman) - prefixo /api
+app.use(apiRoutes);
+
 app.listen(3000, () => {
-    console.log('🚀 Servidor rodando com sucesso em http://localhost:3000');
+    console.log('🚀 Servidor rodando em http://localhost:3000');
+    console.log('🌐 Navegador: http://localhost:3000/login');
+    console.log('📮 Postman:   POST http://localhost:3000/api/login');
 });

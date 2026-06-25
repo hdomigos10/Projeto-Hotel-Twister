@@ -98,6 +98,37 @@ Cada reserva está vinculada a exatamente um hóspede e a um quarto. Ao criar ou
 > UPDATE usuario SET senha_hash = '$2b$10$dAPKQXI/pqWDvnmRj5XuVu4d0ETkAz7CL/JiZTQp6TrpLT1qlvxZe' WHERE email = 'admin@hotel.com';
 > ```
 
+## 📮 Rotas da API (Postman)
+
+O projeto expõe rotas REST com prefixo `/api` para testes via Postman. A collection `Hotel_Twister.postman_collection.json` já está incluída na raiz do projeto — basta importar no Postman.
+
+**Autenticação:**
+- `POST /api/login` — realiza login e inicia sessão
+- `POST /api/logout` — encerra a sessão
+
+**Hóspedes:**
+- `GET /api/hospedes` — lista todos
+- `GET /api/hospedes/:id` — busca por ID
+- `POST /api/hospedes` — cadastra novo
+- `PUT /api/hospedes/:id` — atualiza
+- `DELETE /api/hospedes/:id` — exclui
+
+**Quartos:**
+- `GET /api/quartos` — lista todos
+- `GET /api/quartos/:id` — busca por ID
+- `POST /api/quartos` — cadastra novo
+- `PUT /api/quartos/:id` — atualiza
+- `DELETE /api/quartos/:id` — exclui
+
+**Reservas:**
+- `GET /api/reservas` — lista todas
+- `GET /api/reservas/:id` — busca por ID
+- `POST /api/reservas` — cadastra nova (atualiza status do quarto automaticamente)
+- `PUT /api/reservas/:id` — atualiza (troca de quarto libera o antigo e ocupa o novo)
+- `DELETE /api/reservas/:id` — exclui (quarto volta para Disponível automaticamente)
+
+> **Atenção:** todas as rotas `/api` exceto `/api/login` exigem autenticação. Faça o login primeiro — o Postman guarda o cookie de sessão automaticamente.
+
 ## ✅ Funcionalidades Implementadas
 
 - Login, logout e proteção de rotas por middleware de sessão (`authMiddLeware.js`).

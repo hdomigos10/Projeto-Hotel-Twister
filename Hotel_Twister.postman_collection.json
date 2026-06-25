@@ -1,0 +1,165 @@
+{
+  "info": {
+    "name": "Hotel Twister API",
+    "description": "Collection para testar a API do Projeto Hotel Twister. Faça o login primeiro — o Postman guarda o cookie de sessão automaticamente.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000" }
+  ],
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@hotel.com\",\n  \"senha\": \"admin123\"\n}" },
+            "url": { "raw": "{{base_url}}/api/login", "host": ["{{base_url}}"], "path": ["api", "login"] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/api/logout", "host": ["{{base_url}}"], "path": ["api", "logout"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Hóspedes",
+      "item": [
+        {
+          "name": "Listar hóspedes",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/hospedes", "host": ["{{base_url}}"], "path": ["api", "hospedes"] }
+          }
+        },
+        {
+          "name": "Buscar hóspede por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/hospedes/1", "host": ["{{base_url}}"], "path": ["api", "hospedes", "1"] }
+          }
+        },
+        {
+          "name": "Criar hóspede",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Maria Silva\",\n  \"cpf\": \"333.444.555-66\",\n  \"email\": \"maria@email.com\",\n  \"telefone\": \"(43) 98888-7777\"\n}" },
+            "url": { "raw": "{{base_url}}/api/hospedes", "host": ["{{base_url}}"], "path": ["api", "hospedes"] }
+          }
+        },
+        {
+          "name": "Atualizar hóspede",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Maria Silva Atualizada\",\n  \"cpf\": \"333.444.555-66\",\n  \"email\": \"maria@email.com\",\n  \"telefone\": \"(43) 98888-7777\"\n}" },
+            "url": { "raw": "{{base_url}}/api/hospedes/1", "host": ["{{base_url}}"], "path": ["api", "hospedes", "1"] }
+          }
+        },
+        {
+          "name": "Excluir hóspede",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/hospedes/1", "host": ["{{base_url}}"], "path": ["api", "hospedes", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Quartos",
+      "item": [
+        {
+          "name": "Listar quartos",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/quartos", "host": ["{{base_url}}"], "path": ["api", "quartos"] }
+          }
+        },
+        {
+          "name": "Buscar quarto por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/quartos/1", "host": ["{{base_url}}"], "path": ["api", "quartos", "1"] }
+          }
+        },
+        {
+          "name": "Criar quarto",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"numero\": \"201\",\n  \"tipo\": \"Luxo\",\n  \"preco_diaria\": 350.00,\n  \"status\": \"Disponível\"\n}" },
+            "url": { "raw": "{{base_url}}/api/quartos", "host": ["{{base_url}}"], "path": ["api", "quartos"] }
+          }
+        },
+        {
+          "name": "Atualizar quarto",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"numero\": \"201\",\n  \"tipo\": \"Master VIP\",\n  \"preco_diaria\": 500.00,\n  \"status\": \"Disponível\"\n}" },
+            "url": { "raw": "{{base_url}}/api/quartos/1", "host": ["{{base_url}}"], "path": ["api", "quartos", "1"] }
+          }
+        },
+        {
+          "name": "Excluir quarto",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/quartos/1", "host": ["{{base_url}}"], "path": ["api", "quartos", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Reservas",
+      "item": [
+        {
+          "name": "Listar reservas",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/reservas", "host": ["{{base_url}}"], "path": ["api", "reservas"] }
+          }
+        },
+        {
+          "name": "Buscar reserva por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/reservas/1", "host": ["{{base_url}}"], "path": ["api", "reservas", "1"] }
+          }
+        },
+        {
+          "name": "Criar reserva",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"id_hospede\": 1,\n  \"id_quarto\": 2,\n  \"data_entrada\": \"2026-07-01\",\n  \"data_saida\": \"2026-07-05\",\n  \"valor_total\": 1200.00\n}" },
+            "url": { "raw": "{{base_url}}/api/reservas", "host": ["{{base_url}}"], "path": ["api", "reservas"] }
+          }
+        },
+        {
+          "name": "Atualizar reserva",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"id_hospede\": 1,\n  \"id_quarto\": 2,\n  \"data_entrada\": \"2026-07-02\",\n  \"data_saida\": \"2026-07-06\",\n  \"valor_total\": 1400.00\n}" },
+            "url": { "raw": "{{base_url}}/api/reservas/1", "host": ["{{base_url}}"], "path": ["api", "reservas", "1"] }
+          }
+        },
+        {
+          "name": "Excluir reserva",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/reservas/1", "host": ["{{base_url}}"], "path": ["api", "reservas", "1"] }
+          }
+        }
+      ]
+    }
+  ]
+}
